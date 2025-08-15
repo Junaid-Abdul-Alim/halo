@@ -1,3 +1,19 @@
+// HALO IT Services - Enhanced Interactive JavaScript with EmailJS Integration
+// 
+// EmailJS Configuration:
+// - Public Key: Xl2M2m2SBC4XPSiz8
+// - Service ID: service_d5nxmor
+// - Template ID: YOUR_TEMPLATE_ID (REPLACE WITH YOUR ACTUAL TEMPLATE ID)
+// 
+// Required HTML Script Tags:
+// <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+// 
+// Setup Instructions:
+// 1. Create an EmailJS account at https://www.emailjs.com/
+// 2. Create a template and replace YOUR_TEMPLATE_ID with your actual template ID
+// 3. Make sure your template variables match the form field names in your HTML
+// 4. Test the integration to ensure emails are being sent correctly
+
 class HALOWebsite {
     constructor() {
         this.header = document.getElementById('header');
@@ -25,20 +41,8 @@ class HALOWebsite {
     setupEmailJS() {
         // Initialize EmailJS with your public key
         if (typeof emailjs !== 'undefined') {
-            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
-})();
-
-// Handle form submission
-document.getElementById('contactForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    emailjs.sendForm('service_d5nxmor', this)
-        .then(function() {
-            alert('Message sent successfully!');
-        }, function(error) {
-            alert('Failed to send message. Please try again.');
-            console.log('Error:', error);
-        }); // Replace with your EmailJS public key
+            emailjs.init("Xl2M2m2SBC4XPSiz8");
+            console.log('EmailJS initialized successfully');
         } else {
             console.warn('EmailJS library not loaded. Please include the EmailJS script.');
         }
@@ -370,9 +374,9 @@ document.getElementById('contactForm').addEventListener('submit', function(event
         submitButton.style.transform = 'scale(0.95)';
         submitButton.style.transition = 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)';
 
-        // Send form using EmailJS
+        // Send form using EmailJS with your specific credentials
         if (typeof emailjs !== 'undefined') {
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this.contactForm)
+            emailjs.sendForm('service_d5nxmor', 'YOUR_TEMPLATE_ID', this.contactForm)
                 .then((response) => {
                     console.log('SUCCESS!', response.status, response.text);
                     this.showFormMessage(
@@ -390,7 +394,7 @@ document.getElementById('contactForm').addEventListener('submit', function(event
                     }
                 })
                 .catch((error) => {
-                    console.error('FAILED...', error);
+                    console.error('EmailJS Error:', error);
                     this.showFormMessage(
                         'Failed to send message. Please check your connection and try again.',
                         'error'

@@ -1,5 +1,3 @@
-// HALO IT Services - Enhanced Interactive JavaScript
-
 class HALOWebsite {
     constructor() {
         this.header = document.getElementById('header');
@@ -7,6 +5,7 @@ class HALOWebsite {
         this.nav = document.getElementById('nav');
         this.contactForm = document.getElementById('contactForm');
         this.navLinks = document.querySelectorAll('.nav__link');
+        this.faqItems = document.querySelectorAll('[data-faq]');
         
         this.init();
     }
@@ -17,8 +16,34 @@ class HALOWebsite {
         this.setupSmoothScrolling();
         this.setupFormHandling();
         this.setupAnimations();
+        this.setupFAQ();
         this.setupEnhancedInteractions();
+            
+        // Initialize EmailJS
+        this.setupEmailJS();
     }
+    setupEmailJS() {
+        // Initialize EmailJS with your public key
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+})();
+
+// Handle form submission
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    emailjs.sendForm('service_d5nxmor', this)
+        .then(function() {
+            alert('Message sent successfully!');
+        }, function(error) {
+            alert('Failed to send message. Please try again.');
+            console.log('Error:', error);
+        }); // Replace with your EmailJS public key
+        } else {
+            console.warn('EmailJS library not loaded. Please include the EmailJS script.');
+        }
+    }
+
 
     setupEventListeners() {
         // Mobile navigation toggle
@@ -48,6 +73,7 @@ class HALOWebsite {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closeMobileNav();
+                this.closeFAQItems();
             }
         });
     }
@@ -125,7 +151,7 @@ class HALOWebsite {
                 section.classList.add('section--visible');
                 
                 // Animate cards within the section with stagger effect
-                const cards = section.querySelectorAll('.service-card, .industry-card, .project-card, .benefit-card, .affordability-card, .process-step');
+                const cards = section.querySelectorAll('.service-card, .industry-card, .project-card, .benefit-card, .blog-card, .process-step');
                 cards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.add('animate-in');
@@ -344,27 +370,62 @@ class HALOWebsite {
         submitButton.style.transform = 'scale(0.95)';
         submitButton.style.transition = 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)';
 
-        // Simulate successful form submission
-        setTimeout(() => {
-            this.showFormMessage(
-                'Thank you for your message! We\'ll get back to you within 24 hours with a comprehensive consultation.',
-                'success'
-            );
-            
-            // Reset form
-            this.contactForm.reset();
-            
-            // Reset button with animation
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-            submitButton.style.transform = '';
-            
-            // Scroll to success message
-            const formMessage = this.contactForm.querySelector('.form-message');
-            if (formMessage) {
-                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }, 2000);
+        // Send form using EmailJS
+        if (typeof emailjs !== 'undefined') {
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this.contactForm)
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    this.showFormMessage(
+                        'Thank you for your message! We\'ll get back to you within 24 hours with a comprehensive consultation.',
+                        'success'
+                    );
+
+                    // Reset form
+                    this.contactForm.reset();
+
+                    // Scroll to success message
+                    const formMessage = this.contactForm.querySelector('.form-message');
+                    if (formMessage) {
+                        formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                })
+                .catch((error) => {
+                    console.error('FAILED...', error);
+                    this.showFormMessage(
+                        'Failed to send message. Please check your connection and try again.',
+                        'error'
+                    );
+                })
+                .finally(() => {
+                    // Reset button with animation
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    submitButton.style.transform = '';
+                });
+        } else {
+            // Fallback if EmailJS is not loaded
+            console.warn('EmailJS not available, falling back to simulation');
+            setTimeout(() => {
+                this.showFormMessage(
+                    'Thank you for your message! We\'ll get back to you within 24 hours with a comprehensive consultation.',
+                    'success'
+                );
+
+                // Reset form
+                this.contactForm.reset();
+
+                // Reset button with animation
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                submitButton.style.transform = '';
+
+                // Scroll to success message
+                const formMessage = this.contactForm.querySelector('.form-message');
+                if (formMessage) {
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }, 2000);
+        }
     }
 
     showFormMessage(message, type) {
@@ -407,6 +468,52 @@ class HALOWebsite {
         }
     }
 
+    setupFAQ() {
+        // Setup FAQ toggle functionality
+        this.faqItems.forEach(item => {
+            const questionButton = item.querySelector('.faq-item__question');
+            
+            if (questionButton) {
+                questionButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.toggleFAQItem(item);
+                });
+            }
+        });
+    }
+
+    toggleFAQItem(item) {
+        const isActive = item.classList.contains('faq-item--active');
+        
+        // Close all other FAQ items first
+        this.faqItems.forEach(faqItem => {
+            if (faqItem !== item && faqItem.classList.contains('faq-item--active')) {
+                faqItem.classList.remove('faq-item--active');
+            }
+        });
+        
+        // Toggle current item
+        if (isActive) {
+            item.classList.remove('faq-item--active');
+        } else {
+            item.classList.add('faq-item--active');
+            
+            // Scroll to the opened item after animation
+            setTimeout(() => {
+                item.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest' 
+                });
+            }, 300);
+        }
+    }
+
+    closeFAQItems() {
+        this.faqItems.forEach(item => {
+            item.classList.remove('faq-item--active');
+        });
+    }
+
     setupAnimations() {
         // Enhanced Intersection Observer for scroll animations
         const observerOptions = {
@@ -427,7 +534,7 @@ class HALOWebsite {
 
         // Observe elements for animation
         const animateElements = document.querySelectorAll(
-            '.service-card, .industry-card, .benefit-card, .project-card, .tech-category, .process-step, .affordability-card'
+            '.service-card, .industry-card, .benefit-card, .project-card, .tech-category, .process-step, .blog-card, .faq-item'
         );
         
         animateElements.forEach(element => {
@@ -454,18 +561,18 @@ class HALOWebsite {
         // Service card detailed interactions
         this.setupServiceCardInteractions();
         
-        // Affordability card interactions
-        this.setupAffordabilityCardInteractions();
-        
         // Technology tag interactions
         this.setupTechTagInteractions();
         
         // Process step interactions
         this.setupProcessInteractions();
+        
+        // Blog card interactions
+        this.setupBlogInteractions();
     }
 
     setupCardInteractions() {
-        const cards = document.querySelectorAll('.service-card, .project-card, .industry-card, .affordability-card');
+        const cards = document.querySelectorAll('.service-card, .project-card, .industry-card');
         
         cards.forEach(card => {
             card.addEventListener('mouseenter', (e) => {
@@ -531,40 +638,6 @@ class HALOWebsite {
         });
     }
 
-    setupAffordabilityCardInteractions() {
-        const affordabilityCards = document.querySelectorAll('.affordability-card');
-        
-        affordabilityCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                const icon = card.querySelector('.icon');
-                const title = card.querySelector('.affordability-card__title');
-                
-                if (icon) {
-                    icon.style.transform = 'scale(1.1) rotate(5deg)';
-                    icon.style.transition = 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)';
-                }
-                
-                if (title) {
-                    title.style.color = 'var(--halo-accent)';
-                    title.style.transition = 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)';
-                }
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                const icon = card.querySelector('.icon');
-                const title = card.querySelector('.affordability-card__title');
-                
-                if (icon) {
-                    icon.style.transform = '';
-                }
-                
-                if (title) {
-                    title.style.color = '';
-                }
-            });
-        });
-    }
-
     setupTechTagInteractions() {
         const techTags = document.querySelectorAll('.tech-tag');
         
@@ -608,6 +681,28 @@ class HALOWebsite {
                 const number = step.querySelector('.process-step__number');
                 if (number) {
                     number.style.transform = '';
+                }
+            });
+        });
+    }
+
+    setupBlogInteractions() {
+        const blogCards = document.querySelectorAll('.blog-card');
+        
+        blogCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Add click animation
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'all 150ms cubic-bezier(0.16, 1, 0.3, 1)';
+                
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 150);
+                
+                // In a real application, you would navigate to the blog post here
+                const title = card.querySelector('.blog-card__title');
+                if (title) {
+                    console.log('Navigate to blog post:', title.textContent);
                 }
             });
         });
@@ -686,15 +781,15 @@ const additionalCSS = `
         transform: translateY(0) scale(1);
     }
     
-    .affordability-card {
+    .blog-card {
         opacity: 0;
-        transform: translateY(20px) scale(0.95);
+        transform: translateY(20px);
         transition: all 700ms cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    .affordability-card.animate-in {
+    .blog-card.animate-in {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
     
     .industry-card {
@@ -708,6 +803,17 @@ const additionalCSS = `
         transform: translateY(0) rotate(0deg);
     }
     
+    .faq-item {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .faq-item.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
     @media (max-width: 768px) {
         .nav {
             display: none;
@@ -717,12 +823,12 @@ const additionalCSS = `
             display: flex;
         }
         
-        .service-card:hover,
-        .affordability-card:hover {
+        .service-card:hover {
             transform: translateY(-4px);
         }
         
         .project-card:hover,
+        .blog-card:hover,
         .industry-card:hover {
             transform: translateY(-3px);
         }
@@ -789,7 +895,7 @@ function createScrollProgress() {
 
 function setupLazyLoading() {
     // Lazy load animations for better performance
-    const lazyElements = document.querySelectorAll('.service-card, .project-card, .affordability-card');
+    const lazyElements = document.querySelectorAll('.service-card, .project-card, .blog-card');
     
     const lazyObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

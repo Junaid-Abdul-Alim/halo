@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HALO IT Services - Your Complete IT Partner</title>
     <link rel="stylesheet" href="style.css">
+    <!-- EmailJS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <header class="header" id="header">
@@ -21,8 +23,8 @@
                         <li class="nav__item"><a href="#industries" class="nav__link">Industries</a></li>
                         <li class="nav__item"><a href="#process" class="nav__link">Process</a></li>
                         <li class="nav__item"><a href="#portfolio" class="nav__link">Portfolio</a></li>
-                        <li class="nav__item"><a href="#why-choose" class="nav__link">Why Choose Us</a></li>
                         <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="#blog" class="nav__link">Insights</a></li>
                         <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
                     </ul>
                 </nav>
@@ -485,73 +487,6 @@
             </div>
         </section>
 
-        <section class="why-choose" id="why-choose">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Affordable & Easy Solutions</h2>
-                    <p class="section__subtitle">Quality IT services that fit your budget and simplify your business</p>
-                </div>
-                <div class="affordability__grid">
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--budget"></div>
-                        </div>
-                        <h3 class="affordability-card__title">Budget-Friendly Pricing</h3>
-                        <p class="affordability-card__description">Competitive rates without compromising on quality. We offer flexible pricing models to fit any budget.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--transparent"></div>
-                        </div>
-                        <h3 class="affordability-card__title">No Hidden Costs</h3>
-                        <p class="affordability-card__description">Transparent pricing with clear project estimates. What we quote is what you pay - no surprises.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--flexible"></div>
-                        </div>
-                        <h3 class="affordability-card__title">Flexible Payment Options</h3>
-                        <p class="affordability-card__description">Choose from various payment plans including milestones, monthly retainers, or project-based pricing.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--quick"></div>
-                        </div>
-                        <h3 class="affordability-card__title">Quick Turnaround</h3>
-                        <p class="affordability-card__description">Efficient processes mean faster delivery, reducing your time-to-market and overall project costs.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--communication"></div>
-                        </div>
-                        <h3 class="affordability-card__title">Easy Communication</h3>
-                        <p class="affordability-card__description">Simple, clear communication throughout the project. No technical jargon - we speak your language.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--hassle-free"></div>
-                        </div>
-                        <h3 class="affordability-card__title">Hassle-Free Process</h3>
-                        <p class="affordability-card__description">We handle all the technical complexities while you focus on your business. Smooth, stress-free experience.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--all-in-one"></div>
-                        </div>
-                        <h3 class="affordability-card__title">All-in-One Solution</h3>
-                        <p class="affordability-card__description">One partner for all your IT needs means better coordination, fewer vendors, and reduced costs.</p>
-                    </div>
-                    <div class="affordability-card">
-                        <div class="affordability-card__icon">
-                            <div class="icon icon--scalable"></div>
-                        </div>
-                        <h3 class="affordability-card__title">Scalable Solutions</h3>
-                        <p class="affordability-card__description">Start small and scale up as needed. Our solutions grow with your business without major overhauls.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="about" id="about">
             <div class="container">
                 <div class="section__header">
@@ -587,6 +522,114 @@
             </div>
         </section>
 
+        <section class="faq" id="faq">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Frequently Asked Questions</h2>
+                    <p class="section__subtitle">Common questions about our IT services</p>
+                </div>
+                <div class="faq__list">
+                    <div class="faq-item" data-faq>
+                        <button class="faq-item__question" type="button">
+                            <span>What types of IT services do you offer?</span>
+                            <span class="faq-item__icon">+</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            <p>We provide comprehensive IT services including web development, mobile apps, AI solutions, cloud computing, cybersecurity, database management, IT consulting, DevOps, quality assurance, and digital marketing.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-faq>
+                        <button class="faq-item__question" type="button">
+                            <span>Do you work with small businesses or just enterprises?</span>
+                            <span class="faq-item__icon">+</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            <p>We work with businesses of all sizes, from startups to large enterprises. Our solutions are scalable and tailored to each client's specific needs and budget.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-faq>
+                        <button class="faq-item__question" type="button">
+                            <span>How do you ensure project quality?</span>
+                            <span class="faq-item__icon">+</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            <p>We follow industry best practices, implement rigorous testing procedures, conduct code reviews, and maintain continuous communication throughout the development process.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-faq>
+                        <button class="faq-item__question" type="button">
+                            <span>What is your typical project timeline?</span>
+                            <span class="faq-item__icon">+</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            <p>Project timelines vary based on complexity and scope. Simple projects may take 2-4 weeks, while complex enterprise solutions can take 3-6 months. We provide detailed timelines during the planning phase.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-faq>
+                        <button class="faq-item__question" type="button">
+                            <span>Do you provide ongoing support after project completion?</span>
+                            <span class="faq-item__icon">+</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            <p>Yes, we offer comprehensive maintenance and support services to ensure your systems continue to perform optimally after launch.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" data-faq>
+                        <button class="faq-item__question" type="button">
+                            <span>Can you help with digital transformation initiatives?</span>
+                            <span class="faq-item__icon">+</span>
+                        </button>
+                        <div class="faq-item__answer">
+                            <p>Absolutely. We specialize in helping organizations modernize their technology infrastructure, processes, and capabilities to stay competitive in the digital age.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog" id="blog">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Latest Insights</h2>
+                    <p class="section__subtitle">Stay updated with technology trends and best practices</p>
+                </div>
+                <div class="blog__grid">
+                    <article class="blog-card">
+                        <div class="blog-card__category">AI & Technology</div>
+                        <h3 class="blog-card__title">The Future of AI in Business Operations</h3>
+                        <p class="blog-card__excerpt">Exploring how artificial intelligence is transforming business processes and creating new opportunities for growth.</p>
+                        <div class="blog-card__meta">
+                            <span class="blog-card__date">August 1, 2025</span>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-card__category">Cloud Computing</div>
+                        <h3 class="blog-card__title">Cloud Migration Best Practices</h3>
+                        <p class="blog-card__excerpt">Essential strategies for successful cloud migration projects and avoiding common pitfalls.</p>
+                        <div class="blog-card__meta">
+                            <span class="blog-card__date">July 28, 2025</span>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-card__category">Cybersecurity</div>
+                        <h3 class="blog-card__title">Cybersecurity in the Modern Workplace</h3>
+                        <p class="blog-card__excerpt">Key security considerations for remote and hybrid work environments.</p>
+                        <div class="blog-card__meta">
+                            <span class="blog-card__date">July 25, 2025</span>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-card__category">Mobile Development</div>
+                        <h3 class="blog-card__title">Mobile App Development Trends 2025</h3>
+                        <p class="blog-card__excerpt">Latest trends and technologies shaping mobile application development.</p>
+                        <div class="blog-card__meta">
+                            <span class="blog-card__date">July 22, 2025</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section class="contact" id="contact">
             <div class="container">
                 <div class="contact__content">
@@ -598,7 +641,7 @@
                         </p>
                         <div class="contact__details">
                             <div class="contact__detail">
-                                <strong>Email:</strong> junaidabdulaimwork@gmail.com
+                                <strong>Email:</strong> junaidabdulalimwork@gmail.com
                             </div>
                             <div class="contact__detail">
                                 <strong>Phone:</strong> +919345912928
@@ -618,21 +661,47 @@
                         </div>
                     </div>
                     <div class="contact__form">
-                        <form id="contactForm">
-    <div class="form-group">
-        <label class="form-label">Name</label>
-        <input type="text" name="from_name" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" name="reply_to" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea name="message" class="form-control" rows="5" required></textarea>
-    </div>
-    <button type="submit" class="btn btn--primary">Send Message</button>
-</form>
+                        <form class="form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name *</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service" class="form-label">Primary Service Interest *</label>
+                                <select id="service" name="service" class="form-control" required>
+                                    <option value="">Select a service</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="mobile-apps">Mobile App Development</option>
+                                    <option value="ai-solutions">AI & Machine Learning</option>
+                                    <option value="cloud-services">Cloud Computing</option>
+                                    <option value="cybersecurity">Cybersecurity</option>
+                                    <option value="database">Database Management</option>
+                                    <option value="consulting">IT Consulting</option>
+                                    <option value="devops">DevOps & Automation</option>
+                                    <option value="qa">Quality Assurance</option>
+                                    <option value="digital-marketing">Digital Marketing</option>
+                                    <option value="multiple">Multiple Services</option>
+                                    <option value="consultation">General Consultation</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeline" class="form-label">Desired Timeline</label>
+                                <select id="timeline" name="timeline" class="form-control">
+                                    <option value="">Select timeline</option>
+                                    <option value="urgent">ASAP (Rush project)</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Project Details *</label>
+                                <textarea id="message" name="message" rows="4" class="form-control" placeholder="Tell us about your project requirements, business goals, and any specific challenges you're facing..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">Send Message & Get Free Consultation</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -652,52 +721,43 @@
                 </div>
                 <div class="footer__links">
                     <div class="footer__section">
-                        <h4 class="footer__title">Web & Mobile</h4>
+                        <h4 class="footer__title">Core Services</h4>
                         <ul class="footer__list">
                             <li><a href="#services">Web Development</a></li>
-                            <li><a href="#services">Mobile App Development</a></li>
-                            <li><a href="#services">E-commerce Platforms</a></li>
-                            <li><a href="#services">Progressive Web Apps</a></li>
-                            <li><a href="#services">Responsive Design</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer__section">
-                        <h4 class="footer__title">AI & Cloud</h4>
-                        <ul class="footer__list">
+                            <li><a href="#services">Mobile Apps</a></li>
                             <li><a href="#services">AI Solutions</a></li>
-                            <li><a href="#services">Machine Learning</a></li>
                             <li><a href="#services">Cloud Computing</a></li>
-                            <li><a href="#services">Cloud Migration</a></li>
-                            <li><a href="#services">Serverless Computing</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer__section">
-                        <h4 class="footer__title">Security & Data</h4>
-                        <ul class="footer__list">
                             <li><a href="#services">Cybersecurity</a></li>
                             <li><a href="#services">Database Management</a></li>
-                            <li><a href="#services">Data Analytics</a></li>
-                            <li><a href="#services">Business Intelligence</a></li>
-                            <li><a href="#services">Compliance Management</a></li>
                         </ul>
                     </div>
                     <div class="footer__section">
-                        <h4 class="footer__title">Consulting & Support</h4>
+                        <h4 class="footer__title">Consulting Services</h4>
                         <ul class="footer__list">
                             <li><a href="#services">IT Strategy</a></li>
                             <li><a href="#services">DevOps & Automation</a></li>
                             <li><a href="#services">Quality Assurance</a></li>
                             <li><a href="#services">Digital Marketing</a></li>
-                            <li><a href="#contact">24/7 Support</a></li>
+                            <li><a href="#industries">Industry Solutions</a></li>
+                            <li><a href="#process">Our Process</a></li>
                         </ul>
                     </div>
                     <div class="footer__section">
-                        <h4 class="footer__title">Company</h4>
+                        <h4 class="footer__title">Resources</h4>
                         <ul class="footer__list">
                             <li><a href="#portfolio">Case Studies</a></li>
-                            <li><a href="#why-choose">Why Choose Us</a></li>
-                            <li><a href="#industries">Industries</a></li>
+                            <li><a href="#blog">Tech Insights</a></li>
+                            <li><a href="#faq">FAQ</a></li>
                             <li><a href="#contact">Free Consultation</a></li>
+                            <li><a href="#about">Why Choose Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__section">
+                        <h4 class="footer__title">Contact</h4>
+                        <ul class="footer__list">
+                            <li>junaidabdulalimwork@gmail.com</li>
+                            <li>+919345912928</li>
+                            <li>24-hour response time</li>
                             <li><a href="#contact">Get Started</a></li>
                         </ul>
                     </div>
@@ -709,6 +769,6 @@
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app-with-emailjs-configured.js"></script>
 </body>
 </html>
